@@ -1,4 +1,5 @@
 import React,{ createContext, useState} from 'react'
+import { enums } from '../enums'
 import axios from 'axios'
 
 export const DashboardContext = createContext();
@@ -12,13 +13,12 @@ const DashboardContextProvider = ({children}) => {
     let createdTimes = [];
 
     await axios
-    .post("https://perfanalyticapi.herokuapp.com/datas",{
+    .post(enums.url,{
       ttfb:window.performance.timing.responseStart - window.performance.timing.fetchStart,
-      createdTime: new Date().toLocaleString('tr-TR')
     })
 
     await axios
-        .get("https://perfanalyticapi.herokuapp.com/datas")
+        .get(enums.url)
         .then(res => {
           res.data.filter(x=>{
             loadTimes.push(x.ttfb)
@@ -27,13 +27,11 @@ const DashboardContextProvider = ({children}) => {
 
           setChartData({
             labels: createdTimes,
-            datasets: [
-              {
-                label: "TTFB",
+            datasets: [{
+                label: 'TTFB',
                 data: loadTimes,
                 borderColor:'rgba(81, 194, 232)'
-              }
-            ]
+              }]
           });
         })
         .catch(err => {

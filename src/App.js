@@ -1,6 +1,6 @@
 import React from 'react';
 import Dashboard from './Components/Dashboard/Dashboard';
-import DashboardContextProvider from './DashboardContext';
+import DashboardContextProvider from './Context/DashboardContext';
 
 function App() {
   return (
