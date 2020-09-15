@@ -7,17 +7,17 @@ const DashboardContextProvider = ({children}) => {
 
   const [chartData, setChartData] = useState({});
 
-  const chart = () => {
+  async function chart (){
     let loadTimes = [];
     let createdTimes = [];
 
-    axios
+    await axios
     .post("https://perfanalyticapi.herokuapp.com/datas",{
       ttfb:window.performance.timing.responseStart - window.performance.timing.fetchStart,
       createdTime: new Date().toLocaleString('tr-TR')
     })
 
-    axios
+    await axios
         .get("https://perfanalyticapi.herokuapp.com/datas")
         .then(res => {
           res.data.filter(x=>{
@@ -39,7 +39,7 @@ const DashboardContextProvider = ({children}) => {
         .catch(err => {
           console.log(err);
         });
-    };
+    }
 
     return (
         <DashboardContext.Provider value={{chartData, chart}}>

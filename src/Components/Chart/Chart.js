@@ -12,7 +12,7 @@ const DashboardChart = () => {
 
   return (
     <div>
-      <Line data={chartData}/>
+      <Line data={chartData} className="chart"/>
     </div>
   );
 };
